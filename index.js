@@ -1,5 +1,5 @@
-const SpotifyApiClient = require("./spotifyApiClient");
-const YoutubeApiClient = require("./youtubeApiClient");
+const SpotifyApiClient = require("./clients/spotifyApiClient");
+const YoutubeApiClient = require("./clients/youtubeApiClient");
 const startServer = require("./server");
 
 require("dotenv").config();

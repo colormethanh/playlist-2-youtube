@@ -1,10 +1,27 @@
 require("dotenv").config();
+const cors = require("cors");
+const bodyParser = require("body-parser");
 const express = require("express");
 
 const app = express();
 
 function startServer(spotifyApiClient, youtubeApiClient) {
   app.use(express.json());
+
+  const corsOptions = {
+    origin: process.env.ALLOWED_ORIGIN_URL || [
+      "http://localhost:3001",
+      "http://localhost:3002",
+    ],
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: false,
+    sameSite: "None",
+  };
+  app.use(cors(corsOptions));
+
+  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(bodyParser.json());
 
   app.get("/playlist", async (req, res) => {
     try {
@@ -34,10 +51,6 @@ function startServer(spotifyApiClient, youtubeApiClient) {
     } catch (error) {
       return res.status(500).send(`Server Error: ${error}`);
     }
-  });
-
-  app.get("/", (req, res) => {
-    res.send("Hello, world");
   });
 
   return app;
