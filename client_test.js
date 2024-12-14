@@ -7,4 +7,11 @@ console.log("clientSecret", client_secret);
 
 const client = new SpotifyClient(client_id, client_secret);
 
-client.refreshAccessToken();
+async function testClient() {
+  await client.refreshAccessToken();
+  const items = await client.getPlaylist(
+    "0cY8cn2ziWuFpnomQOElMq?si=bd4c1cb0dd134c5a"
+  );
+  console.log(items);
+}
+testClient();
