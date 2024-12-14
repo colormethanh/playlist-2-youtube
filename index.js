@@ -13,6 +13,7 @@ const youtubeApiClient = new YoutubeApiClient(YT_API_KEY);
 
 console.log("Starting server");
 const server = startServer(spotifyApiClient, youtubeApiClient);
+
 server.listen(port, () => {
   console.log(`🚀 Server running at http://localhost:${port}`);
 });
