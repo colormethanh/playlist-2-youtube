@@ -31,9 +31,9 @@ function startServer(spotifyApiClient, youtubeApiClient) {
         return res.status(400).send("Token and playlist id are required");
 
       console.log("Requesting data from spotify");
-      const playlists = await spotifyApiClient.getPlaylist(playlistId);
+      const playlistData = await spotifyApiClient.getPlaylist(playlistId);
 
-      res.send(playlists);
+      res.send(playlistData);
     } catch (err) {
       return res.status(500).send(`Server Error: ${error}`);
     }

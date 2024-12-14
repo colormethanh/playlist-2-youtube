@@ -22,16 +22,15 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <MyThemeProvider>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased h-[100vh] overflow-x-hidden`}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased h-[100vh] overflow-hidden`}
         >
-          <nav className="fixed left-0 top-0 h-12 w-[100vw] border-b">
+          <nav className="fixed left-0 top-0 h-12 w-[100vw] border-b bg-black">
             {" "}
             Navbar{" "}
           </nav>
-          <div className="grid grid-rows-[3rem_1fr_20px] font-[family-name:var(--font-geist-sans)] h-[99vh]">
-            <div> </div>
+          <div className="font-[family-name:var(--font-geist-sans)] h-[100vh] flex flex-col overflow-y-auto">
             {children}
-            <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center border-t w-full">
+            <footer className="flex gap-6 flex-wrap items-center justify-center border-t w-full">
               <h1> My footer </h1>
             </footer>
           </div>
