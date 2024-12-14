@@ -1,4 +1,4 @@
-class SpotifyClient {
+class SpotifyApiClient {
   constructor(client_id, client_secret) {
     this.clientId = client_id;
     this.clientSecret = client_secret;
@@ -85,4 +85,4 @@ class SpotifyClient {
   }
 }
 
-module.exports = SpotifyClient;
+module.exports = SpotifyApiClient;
