@@ -3,20 +3,37 @@ const express = require("express");
 
 const app = express();
 
-function startServer(spotifyClient) {
+function startServer(spotifyApiClient, youtubeApiClient) {
   app.use(express.json());
 
-  // https://open.spotify.com/playlist/37i9dQZF1EVHGWrwldPRtj?si=2ec4f27298944e33
   app.get("/playlist", async (req, res) => {
-    const playlistId = req.query.q;
+    try {
+      const playlistId = req.query.q;
 
-    if (!playlistId)
-      return res.status(200).send("Token and playlist id could are required");
+      if (!playlistId)
+        return res.status(400).send("Token and playlist id are required");
 
-    console.log("Requesting data from spotify");
-    const data = await spotifyClient.getPlaylist(playlistId);
+      console.log("Requesting data from spotify");
+      const playlists = await spotifyApiClient.getPlaylist(playlistId);
 
-    res.send(data);
+      res.send(playlists);
+    } catch (err) {
+      return res.status(500).send(`Server Error: ${error}`);
+    }
+  });
+
+  app.get("/videos", async (req, res) => {
+    try {
+      const searchQuery = req.query.q;
+      if (!searchQuery) return res.status(400).send("search query required");
+
+      console.log("Requesting data from youtube");
+      const videos = await youtubeApiClient.searchVideos(searchQuery);
+
+      return res.send(videos);
+    } catch (error) {
+      return res.status(500).send(`Server Error: ${error}`);
+    }
   });
 
   app.get("/", (req, res) => {
