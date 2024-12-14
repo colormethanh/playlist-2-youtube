@@ -1,8 +1,7 @@
+require("dotenv").config();
 const youtubeApiClient = require("./youtubeApiClient");
 
-const ytClient = new youtubeApiClient(
-  "AIzaSyA14EBa0SvxoxfXFkP_1m7iIrzu3dI2qTM"
-);
+const ytClient = new youtubeApiClient(process.env.YT_API_KEY);
 
 const testClient = async () => {
   console.log(await ytClient.searchVideos("Bruno Mars"));

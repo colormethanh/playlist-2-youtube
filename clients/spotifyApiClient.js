@@ -78,7 +78,7 @@ class SpotifyApiClient {
 
       const json = await response.json();
       console.log("Retrieved items count: ", json?.tracks?.items.length);
-      return json.tracks.items;
+      return { tracks: json.tracks.items };
     } catch (error) {
       console.error(error.message);
     }

@@ -1,5 +1,5 @@
-const SpotifyApiClient = require("./spotifyApiClient");
-const YoutubeApiClient = require("./youtubeApiClient");
+const SpotifyApiClient = require("./clients/spotifyApiClient");
+const YoutubeApiClient = require("./clients/youtubeApiClient");
 const startServer = require("./server");
 
 require("dotenv").config();
@@ -13,6 +13,7 @@ const youtubeApiClient = new YoutubeApiClient(YT_API_KEY);
 
 console.log("Starting server");
 const server = startServer(spotifyApiClient, youtubeApiClient);
+
 server.listen(port, () => {
   console.log(`🚀 Server running at http://localhost:${port}`);
 });
