@@ -24,15 +24,8 @@ export default function RootLayout({ children }) {
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased h-[100vh] overflow-hidden`}
         >
-          <nav className="fixed left-0 top-0 h-12 w-[100vw] border-b bg-black">
-            {" "}
-            Navbar{" "}
-          </nav>
           <div className="font-[family-name:var(--font-geist-sans)] h-[100vh] flex flex-col overflow-y-auto">
             {children}
-            <footer className="flex gap-6 flex-wrap items-center justify-center border-t w-full">
-              <h1> My footer </h1>
-            </footer>
           </div>
         </body>
       </MyThemeProvider>

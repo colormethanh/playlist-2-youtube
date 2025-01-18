@@ -9,10 +9,7 @@ function startServer(spotifyApiClient, youtubeApiClient) {
   app.use(express.json());
 
   const corsOptions = {
-    origin: process.env.ALLOWED_ORIGIN_URL || [
-      "http://localhost:3001",
-      "http://localhost:3002",
-    ],
+    origin: [process.env.ALLOWED_ORIGIN_URL],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: false,
