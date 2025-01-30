@@ -8,3 +8,7 @@ First, run the server:
 Second, run the frontend: 
 - cd frontend/playlist-2-youtube
 - npm run dev
+
+Stack:
+- Frontend: React, Material Ui
+- Backend: Node, Express.js

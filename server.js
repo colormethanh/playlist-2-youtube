@@ -1,11 +1,14 @@
-require("dotenv").config();
+require("dotenv").config({path: "../.env"});
+const path = require("path");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const express = require("express");
 
 const app = express();
 
-function startServer(spotifyApiClient, youtubeApiClient) {
+function startServer(spotifyApiClient, youtubeApiClient, youtubeDlClient) {
+  app.use("/files", express.static(path.join(__dirname,"/clients/download")))
+
   app.use(express.json());
 
   const corsOptions = {
@@ -49,6 +52,22 @@ function startServer(spotifyApiClient, youtubeApiClient) {
       return res.status(500).send(`Server Error: ${error}`);
     }
   });
+
+  app.get("/song", async (req, res) => {
+    try {
+      const searchURL = req.query.url;
+      console.log(searchURL)
+      if (!searchURL) return res.status(400).send("search query required");
+
+      console.log("Requesting download from youtube");
+      const filePath = await youtubeDlClient.downloadVideo("https://www.youtube.com/watch?v=kPa7bsKwL-c");
+      const fileName = filePath.split("\\").pop();
+      console.log(fileName);
+      res.json({downloadUrl: `http://localhost:3005/files/${fileName}`})
+    } catch (error) {
+      return res.status(500).send(`Server Error: ${error}`);
+    }
+  })
 
   return app;
 }
