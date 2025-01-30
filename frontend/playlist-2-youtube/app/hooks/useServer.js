@@ -37,5 +37,18 @@ export default function useServer({ onStatusUpdate = (message) => {} }) {
     }
   }
 
-  return { getPlaylistData, isLoading, setIsLoading, status };
+  async function getDownloadLink() {
+    try {
+      const requestUrl = `${BASE_URL}/song?url=${encodeURIComponent('https://www.youtube.com/watch?v=kPa7bsKwL-c')}`;
+      console.log(requestUrl)
+      const resp = await fetch(requestUrl);
+      const json = await resp.json()
+      debugger;
+      return json.downloadUrl;
+    } catch (error) {
+      console.error("Error fetching download link", error)
+    }
+  }
+
+  return { getPlaylistData, isLoading, setIsLoading, status, getDownloadLink };
 }

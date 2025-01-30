@@ -2,6 +2,7 @@
 import { use, useState } from "react";
 
 import Divider from "@mui/material/Divider";
+import { Button } from "@mui/material";
 
 import { validateSpotifyURL } from "./util/validations";
 import { extractSpotifyIdFromUrl } from "./util/parsers";
@@ -9,13 +10,13 @@ import useServer from "./hooks/useServer";
 import SpotifySearchBar from "./components/SpotifySearchBar";
 import PlaylistSearchResultItem from "./components/PlaylistSearchResultItem";
 
-
 export default function Home() {
   const [playlist, setPlaylist] = useState({});
   const [searchInputError, setSearchInputError] = useState(false);
   const [helperText, setHelperText] = useState("");
+  const [downloadLink, setDownloadLink] = useState(null)
 
-  const { getPlaylistData, isLoading, setIsLoading, status } = useServer(
+  const { getPlaylistData, isLoading, setIsLoading, status, getDownloadLink } = useServer(
     (message) => {
       setHelperText(message);
     }
@@ -45,6 +46,17 @@ export default function Home() {
     setIsLoading(false);
   };
 
+  const handleSearchYoutube = async () => {
+    console.log("hello world");
+
+    try{
+      const resp = await getDownloadLink();
+      setDownloadLink(resp);
+    } catch (error) {
+      console.log("error fetching download link", error)
+    }
+  }
+
   return (
     <div className="container mx-auto">
       <main>
@@ -73,7 +85,11 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="w-[20vw] h-[90vh] border rounded-lg"></div>
+          <div className="w-[20vw] h-[90vh] border rounded-lg p-4">
+              <Button variant="outlined" onClick={handleSearchYoutube}> Search song </Button>
+              <br />
+              {downloadLink && <a href={downloadLink} target="_blank" download> Click here to download </a>}
+          </div>
         </div>
       </main>
     </div>
